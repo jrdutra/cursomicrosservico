@@ -2,8 +2,6 @@ package com.jrdutra.agenda.service;
 
 import java.util.Optional;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,47 +13,42 @@ import com.jrdutra.agenda.repository.ContatoRepository;
 public class ContatoService {
 	
 	@Autowired
-	private ContatoRepository contatoRepository;
+	ContatoRepository contatoRepository;
 	
-	private static final Logger LOGGER = LogManager.getLogger(ContatoService.class);
-	
-	public ContatoEntity buscaCotatoPorId(Long id) throws ContatoNaoEncontradoException {
+	public ContatoEntity buscaContatoPorId(Long id) throws Exception {
 		
-		ContatoEntity contatoEntityRetorno = new ContatoEntity();
+		Optional<ContatoEntity> optionalContatoEntity = contatoRepository.buscarPorId(id);
 		
-		Optional<ContatoEntity> resultadoBusca = contatoRepository.buscarPorId(id);
+		ContatoEntity contatoEntity;
 		
-		if(resultadoBusca.isEmpty()){
-			LOGGER.info("Contato não encontrado para o id {}", id);
+		if(optionalContatoEntity.isEmpty()) {
 			throw new ContatoNaoEncontradoException("Contato não encontrado para o id " + id.toString());
+		}else {
+			contatoEntity = optionalContatoEntity.get();
 		}
 		
-		contatoEntityRetorno = resultadoBusca.get();
-		LOGGER.info("Contato encontrado.");
-			
-		return contatoEntityRetorno;
+		return contatoEntity;
 	}
-
+	
 	public ContatoEntity salvarContato(ContatoEntity contatoEntity) {
-		LOGGER.info("Salvando contato...");
 		ContatoEntity contatoEntitySalvo = contatoRepository.save(contatoEntity);
 		return contatoEntitySalvo;
 	}
 	
-	public ContatoEntity alterarContato(ContatoEntity contatoEntityAlterar, Long id) throws ContatoNaoEncontradoException {
-		LOGGER.info("Alterando contato de id {} para {}", id, contatoEntityAlterar);
+	public ContatoEntity alterarContato(ContatoEntity contatoEntityAlterar, Long id) throws Exception {
 		
-		ContatoEntity contatoEntityBuscado = this.buscaCotatoPorId(id);
+		ContatoEntity contatoEntityBuscado = buscaContatoPorId(id);
 		
 		contatoEntityBuscado.setDataNascimento(contatoEntityAlterar.getDataNascimento());
 		contatoEntityBuscado.setEmail(contatoEntityAlterar.getEmail());
-		contatoEntityAlterar.setNome(contatoEntityAlterar.getNome());
-		contatoEntityAlterar.setTelefone(contatoEntityAlterar.getTelefone());
-		contatoEntityAlterar.setId(id);
+		contatoEntityBuscado.setId(id);
+		contatoEntityBuscado.setNome(contatoEntityAlterar.getNome());
+		contatoEntityBuscado.setTelefone(contatoEntityAlterar.getTelefone());
 		
-		ContatoEntity contatoEntityAlterado = contatoRepository.save(contatoEntityAlterar);
 		
-		return contatoEntityAlterado;
+		ContatoEntity contatoEntitySalvo = salvarContato(contatoEntityBuscado);
+		
+		return contatoEntitySalvo;		
 	}
 	
 	public void deletarContato(Long id) {

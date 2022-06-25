@@ -25,6 +25,14 @@ public class ContatoEntity {
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -55,14 +63,6 @@ public class ContatoEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
 	}
 
 	@Override

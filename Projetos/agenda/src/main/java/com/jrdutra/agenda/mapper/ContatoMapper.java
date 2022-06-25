@@ -1,21 +1,28 @@
 package com.jrdutra.agenda.mapper;
 
 import com.jrdutra.agenda.dto.ContatoDto;
+import com.jrdutra.agenda.dto.IdadeDto;
 import com.jrdutra.agenda.entity.ContatoEntity;
 
 public class ContatoMapper {
 	
-	public static ContatoDto toContatoDto(ContatoEntity contatoEntity, Integer idade) {
-		ContatoDto dto = new ContatoDto();
+	public static ContatoDto contatoEntityToContatoDto(ContatoEntity contatoEntity) {
+		ContatoDto contatoDto = new ContatoDto();
+
+		contatoDto.setEmail(contatoEntity.getEmail());
+		contatoDto.setId(contatoEntity.getId());
+		contatoDto.setNome(contatoEntity.getNome());
+		contatoDto.setTelefone(contatoEntity.getTelefone());
 		
-		dto.setEmail(contatoEntity.getEmail());
-		dto.setNome(contatoEntity.getNome());
-		dto.setTelefone(contatoEntity.getTelefone());
-		dto.setId(contatoEntity.getId());
-		dto.setDataNascimento(contatoEntity.getDataNascimento());
-		dto.setIdade(idade);
+		return contatoDto;
+	}
+	
+	public static ContatoDto contatoEntityToContatoDto(ContatoEntity contatoEntity, IdadeDto idadeDto) {
+		ContatoDto contatoDto = contatoEntityToContatoDto(contatoEntity);
 		
-		return dto;
+		contatoDto.setIdade(idadeDto.getIdade());
+		
+		return contatoDto;
 	}
 
 }

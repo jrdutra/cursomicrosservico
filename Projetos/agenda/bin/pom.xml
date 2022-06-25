@@ -12,7 +12,7 @@
 	<artifactId>agenda</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>agenda</name>
-	<description>Microservico para gerenciar contatos</description>
+	<description>Agenda de contatos</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

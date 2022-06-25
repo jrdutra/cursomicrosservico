@@ -7,7 +7,7 @@ public class ExceptionDto {
 	private HttpStatus status;
 	
 	private String mensagem;
-
+	
 	public ExceptionDto(HttpStatus status, String mensagem) {
 		super();
 		this.status = status;

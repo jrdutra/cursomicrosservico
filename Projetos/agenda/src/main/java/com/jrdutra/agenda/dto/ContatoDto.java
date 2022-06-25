@@ -1,10 +1,8 @@
 package com.jrdutra.agenda.dto;
 
-import java.util.Date;
-
 public class ContatoDto {
 
-private long id;
+	private long id;
 	
 	private String nome;
 	
@@ -12,16 +10,14 @@ private long id;
 	
 	private String email;
 	
-	private Date dataNascimento;
-	
 	private Integer idade;
-	
-	public Date getDataNascimento() {
-		return dataNascimento;
+
+	public Integer getIdade() {
+		return idade;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setIdade(Integer idade) {
+		this.idade = idade;
 	}
 
 	public long getId() {
@@ -55,18 +51,10 @@ private long id;
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public Integer getIdade() {
-		return idade;
-	}
-
-	public void setIdade(Integer idade) {
-		this.idade = idade;
-	}
 
 	@Override
 	public String toString() {
-		return "ContatoDto [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", email=" + email
-				+ ", dataNascimento=" + dataNascimento + ", idade=" + idade + "]";
+		return "ContatoDto [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", idade="
+				+ idade + "]";
 	}
 }

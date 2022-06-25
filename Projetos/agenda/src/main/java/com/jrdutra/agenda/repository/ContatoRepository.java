@@ -12,7 +12,7 @@ import com.jrdutra.agenda.entity.ContatoEntity;
 @Repository
 public interface ContatoRepository extends JpaRepository<ContatoEntity, Long>{
 	
-	@Query("SELECT c FROM ContatoEntity c WHERE c.id = :pId ")
-	Optional<ContatoEntity> buscarPorId(@Param("pId") Long id);
-
+	@Query("SELECT c FROM ContatoEntity c WHERE c.id = :pId")
+	public Optional<ContatoEntity> buscarPorId(@Param("pId") Long id);
+	
 }
